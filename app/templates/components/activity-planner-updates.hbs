@@ -1,0 +1,95 @@
+{{!-- {{yield}} --}}
+
+{{#liquid-if showCategoriesView class="showcategory"}}
+  {{!-- {{#paper-list}}
+    {{#paper-subheader}}Categories{{/paper-subheader}} --}}
+     <div class="dd">
+    {{#each newCategories as |category|}}
+      {{#paper-card class="md-1-line"}}
+        {{!-- <div class="md-list-item-text"> --}}
+          <p onclick={{action "selectCategory" category.name}}>{{category.name}}
+            ({{category.number}})
+          </p>
+        {{!-- </div> --}}
+        {{!-- <div class="md-secondary-container">
+          {{paper-icon "navigate_next"}}
+        </div> --}}
+      {{/paper-card}}
+    {{/each}}
+      </div>
+  {{!-- {{/paper-list}} --}}
+{{/liquid-if}}
+
+{{#liquid-if showCancelledTasks class="showcategory"}}
+  {{#paper-list}}
+    {{#paper-subheader}}Tasks{{/paper-subheader}}
+    {{#each cancelledTasks as |category|}}
+     {{#paper-item class="md-1-line"}}
+        <div class="md-list-item-text">
+          <p>{{category.tasks.text}}</p>
+        </div>
+        <div class="md-secondary-container">
+          {{paper-icon "navigate_next"}}
+        </div>
+      {{/paper-item}}
+    {{/each}}
+  {{/paper-list}}
+  {{#paper-button iconButton=true onClick=(action "showCategories")}}{{paper-icon "arrow_back"}}{{/paper-button}}
+{{/liquid-if}}
+
+{{#liquid-if showCompletedTasksView class="showcategory"}}
+      {{#paper-list}}
+        {{#paper-subheader}}Tasks{{/paper-subheader}}
+        {{#each completedTasks as |category|}}
+          {{#paper-item class="md-1-line" as |controls|}}
+            <div class="md-list-item-text">
+              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.tasks.text}}</p>
+            </div>
+            {{#if selected}}
+              <div class="md-secondary-container">
+                {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
+              </div>
+            {{/if}}
+            {{!-- <div class="md-secondary-container">
+              {{paper-icon "navigate_next"}}
+            </div> --}}
+          {{/paper-item}}
+        {{/each}}
+      {{/paper-list}} 
+      {{#paper-button id="fixedbutton" iconButton=true raised=true fab=true onClick=(action "showCategories")}}{{paper-icon "arrow_back"}}{{/paper-button}}
+{{/liquid-if}}
+
+{{#liquid-if showPendingTasks class="showcategory"}}
+  {{#paper-list}}
+    {{#paper-subheader}}Tasks{{/paper-subheader}}
+    {{#each pendingTasks as |category|}}
+{{#paper-item class="md-1-line"}}
+        <div class="md-list-item-text">
+          <p>{{category.tasks.text}}</p>
+        </div>
+        <div class="md-secondary-container">
+          {{paper-icon "navigate_next"}}
+        </div>
+      {{/paper-item}}
+    {{/each}}
+  {{/paper-list}}
+  {{#paper-button iconButton=true onClick=(action "showCategories")}}{{paper-icon "arrow_back"}}{{/paper-button}}
+{{/liquid-if}}
+
+{{#liquid-if showNewTasksView class="showcategory"}}
+  {{#paper-list}}
+    {{#paper-subheader}}Tasks{{/paper-subheader}}
+    {{#each newTasks as |category|}}
+      {{#paper-item class="md-1-line"}}
+        <div class="md-list-item-text">
+          <p>{{category.tasks.text}}</p>
+        </div>
+        <div class="md-secondary-container">
+          {{paper-icon "navigate_next"}}
+        </div>
+      {{/paper-item}}
+    {{/each}}
+  {{/paper-list}}
+  {{#paper-button iconButton=true onClick=(action "showCategories")}}{{paper-icon "arrow_back"}}{{/paper-button}}
+{{/liquid-if}}
+

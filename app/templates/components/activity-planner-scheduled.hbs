@@ -1,0 +1,55 @@
+{{yield}}
+{{#paper-tabs
+  stretch=true
+  
+  selected=selectedBasicTab
+  onChange=(action (mut selectedBasicTab)) as |tabs|}}
+  {{#tabs.tab}}
+    Future Tasks
+  {{/tabs.tab}}
+
+  {{#tabs.tab}}
+    Today's Tasks
+  {{/tabs.tab}}
+  
+{{/paper-tabs}}
+
+{{#liquid-bind (hash tab=selectedBasicTab) class="md-padding" as |current|}}
+  {{!-- <h1 class="md-display-2">Tab {{current.tab}}</h1> --}}
+  {{#paper-list}}
+    {{#paper-subheader}}
+      {{#if current.tab}}
+        {{!-- Scheduled for Today --}}
+        {{#each todayTasks as |category|}}
+      {{#paper-item class="md-1-line"  as |controls|}}
+        <div class="md-list-item-text">
+          <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.tasks.text}}</p>
+        </div>
+        {{#if selected}}
+        <div class="md-secondary-container ">
+          {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
+        </div>
+        {{/if}}
+      {{/paper-item}}
+    {{/each}}
+        
+      {{else}}
+        {{!-- Scheduled Today --}}
+        {{#each futureTasks as |category|}}
+          {{#paper-item class="md-1-line"  as |controls|}}
+            <div class="md-list-item-text">
+              <p ontouchStart={{action "selectBand" category}} ontouchEnd={{action "unselectBand" category}}>{{category.tasks.text}}</p>
+            </div>
+            {{#if selected}}
+              <div class="md-secondary-container ">
+                {{controls.checkbox value=category.checked onChange=(action (mut category.checked))}}
+              </div>
+            {{/if}}
+          {{/paper-item}}
+        {{/each}}
+      {{/if}}
+    {{/paper-subheader}}
+  {{/paper-list}}
+{{/liquid-bind}}
+
+  

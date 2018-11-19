@@ -1,0 +1,61 @@
+{{activity-planner-navigation 
+    onTabIndexChanged=(action "handleTabIndexChanged") 
+    tabIndex=tabIndex 
+    tabSubheading=tabSubheading }}
+
+    
+        {{!-- {{#each activityPlan as |ap|}}
+            {{ap.tasks.text}}
+        {{/each}} --}}
+
+{{#liquid-if showUpdatesView}}
+    {{#activity-planner-updates
+        selected=selected
+        selectedTasks=selectedTasks
+        completedTasks=completedTasks
+        pendingTasks=pendingTasks
+        newTasks=newTasks
+        cancelledTasks=cancelledTasks
+        ptasks=ptasks
+        ntasks=ntasks
+        ctasks=ctasks
+        catasks=catasks}}
+    {{/activity-planner-updates}}
+{{/liquid-if}}
+
+{{#liquid-if showScheduleTab}}
+{{#activity-planner-scheduled
+    selected=selected
+    selectedTasks=selectedTasks
+    futureTasks=scheduledFutureTasks
+    todayTasks=scheduledTodayTasks
+    selectTask=(action "selectTask")}}
+{{/activity-planner-scheduled}}
+{{/liquid-if}}
+
+{{#liquid-if showBacklogsView}}
+{{#activity-planner-backlogs
+    backlogProjects=backlogProjects 
+    backlogTasks=backlogTasks
+    selectTask=(action "selectTask") }}
+{{/activity-planner-backlogs}}
+{{/liquid-if}}
+
+{{#liquid-if showActivityPlanTab}}
+{{#activity-planner-activity-plan 
+    todayTeamCopy=todayTeamCopy
+    projects=projects 
+    saveData=(action "saveToDb")}}
+{{/activity-planner-activity-plan}}
+{{/liquid-if}}
+{{!-- {{#swiper-container events=(hash slideNextTransitionStart=(action "handleTabIndexC" tabIndex) slidePrevTransitionStart=(action "handleTabIndexB" tabIndex))}} --}}
+
+
+
+
+{{#activity-planner-selected-tasks
+    todayTeamCopy=todayTeamCopy
+    selectedTasks=selectedTasks
+    currentTab=currentTab }}
+{{/activity-planner-selected-tasks}}
+
